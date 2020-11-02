@@ -1,6 +1,15 @@
 {
+    "name": "axelghd/blog",
+    "description": "A training workshop to learn Symfony framework.",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Axel Guihard",
+            "role": "Lead dev",
+            "email": "axelg-44@hotmail.fr"
+        }
+    ],
     "require": {
         "php": ">=7.2.5",
         "ext-ctype": "*",
