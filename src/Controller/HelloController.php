@@ -2,15 +2,24 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class HelloController extends AbstractController {
 
     public function demo1(){
-        return new Response('Let\'s live a dream together Matéo, we can be happy and have a great life together, i\'ll make you happy i promise !');
+        return new Response('Yes, ça marche !');
     }
+    public function demo2(string $name, Request $request){
+        $httpMethod = $request->getMethod();
+        // query-string
+        $option = $request->query->get('city', 'Nantes');
 
-    public function demo2(string $name){
+        // body
+        $data = $request->request->get('country', 'FR');
+
+        $request->getSession()->get('locale', 'fr');
+
         return new Response('Bonjour '.$name.' !');
     }
 
