@@ -11,11 +11,11 @@ demo3:
 demo2:
   path: /hello/{name}
   defaults: { name: 'tout le monde' }
-  schemes: http
-  methods: GET
+  schemes: https
+  methods: [GET, POST]
   controller: App\Controller\HelloController::demo2
 
-demo4:
+demo2.fr:
   path: /bonjour/{name}
   defaults: { name: 'tout le monde', _locale: fr, _format: html }
   schemes: https
