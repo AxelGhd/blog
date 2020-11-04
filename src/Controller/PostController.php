@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
-use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,7 +29,7 @@ class PostController extends AbstractController
     /**
      * @Route("/{id}", requirements={"id":"\d+"})
      */
-    public function detail(Post $post)
+    public function detail(Post $post): Response
     {
         return $this->render('post/detail.html.twig', [
             'post' => $post,
@@ -39,11 +39,20 @@ class PostController extends AbstractController
     /**
      * @Route("/new", methods={"GET", "POST"})
      */
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
+        $post = new Post();
+        $form = $this->createFormBuilder($post)
+            ->add('title')
+            ->add('author')
+            ->add('publishedAt')
+            ->add('content')
+            ->add('isPublished')
+            ->getForm();
 
-
-        return $this->render('post/create.html.twig');
-    }
+        return $this->render('post/create.html.twig',
+        ['create_form' => $form->createView()
+        ])
+    ;}
 
 }

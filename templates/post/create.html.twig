@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <form>
-
-    </form>
+ {{ form_start(create_form) }}
+ {{ form_widget(create_form) }}
+ <button>Soumettre</button>
+ {{ form_end(create_form) }}
 {% endblock %}
 
 {% block title %}
