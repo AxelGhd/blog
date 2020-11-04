@@ -4,14 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/post", methods="GET")
+ */
+
 class PostController extends AbstractController
 {
     /**
-     * @Route("/post", methods="GET")
+     * @Route("")
      */
     public function index(PostRepository $repository): Response
     {
@@ -22,13 +27,23 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}", methods="GET", requirements={"id":"\d+"})
+     * @Route("/{id}", requirements={"id":"\d+"})
      */
     public function detail(Post $post)
     {
         return $this->render('post/detail.html.twig', [
             'post' => $post,
         ]);
+    }
+
+    /**
+     * @Route("/new", methods={"GET", "POST"})
+     */
+    public function create(Request $request)
+    {
+
+
+        return $this->render('post/create.html.twig');
     }
 
 }
