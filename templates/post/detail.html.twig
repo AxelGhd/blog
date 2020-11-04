@@ -3,9 +3,13 @@
 {% block title %}{{post.title}}{% endblock %}
 
 {% block body %}
+    <nav>
+        <a href="{{ path("app_post_index") }}">Retour à la page precedente</a>
+    </nav>
     <h1>{{post.title}}</h1>
     <p>Ecrit par {{ post.author }}, le {{ post.publishedAt | date }}</p>
     <div>
         {{ post.content | nl2br }}
     </div>
+
 {% endblock %}
