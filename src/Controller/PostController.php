@@ -73,11 +73,13 @@ class PostController extends AbstractController
     ;}
 
     /**
-     * @Route("/{id}/edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", methods={"GET", "PUT"})
      */
     public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
-        $form = $this->createFormBuilder($post)
+        $form = $this->createFormBuilder($post, [
+            'method' => 'PUT',
+        ])
             ->add('title')
             ->add('author')
             ->add('publishedAt', DateTimeType::class, [
