@@ -20,7 +20,7 @@ class Post
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\GreaterThanOrEqual("today", groups={"creation"})
+     * @Assert\GreaterThanOrEqual("today", groups={"Creation"})
      */
     private $publishedAt;
 
@@ -128,4 +128,13 @@ class Post
 
         return $this;
     }
+
+    /**
+     * @Assert\IsTrue(message="Content length should be greater than title")
+    */
+    public function isContentGreaterThanTitle()
+    {
+        return mb_strlen($this->content) > mb_strlen($this->title);
+    }
+
 }
