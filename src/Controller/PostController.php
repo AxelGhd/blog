@@ -72,4 +72,33 @@ class PostController extends AbstractController
         ])
     ;}
 
+    /**
+     * @Route("/{id}/edit", methods={"GET", "POST"})
+     */
+    public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createFormBuilder($post)
+            ->add('title')
+            ->add('author')
+            ->add('publishedAt', DateTimeType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('content')
+            ->add('isPublished')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->flush();
+
+            $this->addFlash('success', 'Bravo, vous avez transformé un article naze et un formidable article !');
+
+            return $this->redirectToRoute('app_post_detail', ['id' => $post->getId()]);
+        }
+
+        return $this->render('post/udpate.html.twig',
+            ['create_form' => $form->createView()
+            ])
+            ;}
 }
