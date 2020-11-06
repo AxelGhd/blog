@@ -23,7 +23,9 @@ class PostController extends AbstractController
      */
     public function index(PostRepository $repository): Response
     {
-        $posts = $repository->findAll();
+        $posts = $repository->findLatestPublished();
+        $posts = $repository->findLatestPublished2();
+
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
         ]);
@@ -90,4 +92,25 @@ class PostController extends AbstractController
             ['create_form' => $form->createView()
             ])
             ;}
+
+    /**
+     * @Route("/search")
+     */
+    public function search(Request $request, PostRepository $repository): Response
+    {
+        $searchQuery = $request->query->get('q', '');
+
+        $cleanSearchQuery = trim($searchQuery);
+
+        $posts = [];
+
+        if ($cleanSearchQuery) {
+            $posts = $repository->findByTitleLike($cleanSearchQuery);
+
+        }
+
+        return $this->render('post/search.html.twig', [
+            'posts' => $posts,
+        ]);
+    }
 }

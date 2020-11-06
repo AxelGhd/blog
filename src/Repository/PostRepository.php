@@ -22,36 +22,26 @@ class PostRepository extends ServiceEntityRepository
     public function findLatestPublished()
     {
         return $this->getEntityManager()->createQuery(
-            'SELECT p FROM Post p WHERE p.isPublished = 1 ORDER BY p.publishedAt DESC'
+            'SELECT p FROM '.Post::class.' p WHERE p.isPublished = 1 ORDER BY p.publishedAt DESC'
         )->getResult();
     }
 
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findLatestPublished2()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('p.isPublished = 1')
+            ->orderBy('p.publishedAt', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Post
+    public function findByTitleLike(string $cleanSearchQuery)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('p.title LIKE :term')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->setParameter('term', '%'.$cleanSearchQuery.'%')
+            ->getResult();
     }
-    */
+
 }
