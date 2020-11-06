@@ -22,7 +22,7 @@ class PostRepository extends ServiceEntityRepository
     public function findLatestPublished()
     {
         return $this->getEntityManager()->createQuery(
-            'SELECT p FROM Post p WHERE p.isPublished = true ORDER BY p.publishedAt DESC'
+            'SELECT p FROM Post p WHERE p.isPublished = 1 ORDER BY p.publishedAt DESC'
         )->getResult();
     }
 
